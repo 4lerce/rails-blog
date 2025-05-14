@@ -2,7 +2,7 @@
 
 <%= render @article %>
 
-<p>Creado por: <%= @article.user.email %></p>
+<p>Creado por: <%= @article.user.email.split('@').first %></p>
 
 <div>
   <%= link_to "Edit this article", edit_article_path(@article) %> |
