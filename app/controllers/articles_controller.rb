@@ -11,6 +11,9 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1 or /articles/1.json
   def show
+    @article = Article.find(params[:id])
+    @comments = @article.comments.where.not(id: nil) # Carga solo los comentarios con un ID (persistidos)
+    @comment = @article.comments.build
   end
 
   # GET /articles/new
@@ -37,10 +40,10 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       if @article.update(article_params)
         format.html { redirect_to @article, notice: "Article was successfully updated." }
-        format.json { render :show, status: :ok, location: @article }
+        # format.json { render :show, status: :ok, location: @article }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
+        # format.json { render json: @article.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -51,7 +54,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to articles_path, status: :see_other, notice: "Article was successfully destroyed." }
-      format.json { head :no_content }
+      # format.json { head :no_content }
     end
   end
 
